@@ -1,0 +1,42 @@
+                                               First Approach
+class Solution {
+public:
+    int maximum69Number (int num) {
+        string s = to_string(num);  // convert the number into the string
+
+         for (char &c : s) {     // change the first 6 from the left side to 9 which will be the highest number
+            if (c == '6') {
+                c = '9';
+                break;
+            }
+         }
+         
+         
+         return stoi(s);    // Built-in functor to convert the string to int
+    }
+};  
+
+
+                                               Second Approach
+
+class Solution {
+public:
+    int maximum69Number (int num) {
+        int temp = num;
+        int index = -1, pos = 0;
+        
+        // find position of the most significant 6
+        while (temp > 0) {
+            if (temp % 10 == 6) {
+                index = pos;  // record position of this 6
+            }
+            temp /= 10;
+            pos++;
+        }
+        
+        if (index == -1) return num;  // no 6 found
+        
+        // add 3 * 10^index
+        return num + 3 * pow(10, index);
+    }
+};
