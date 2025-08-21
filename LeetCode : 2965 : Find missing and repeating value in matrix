@@ -1,0 +1,46 @@
+
+------------------------------------------------------1st approach (using hash map  and also using loops to find missing and repeatind values)-----------------------------------------------------------------------------
+
+class Solution {
+public:
+    vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
+        unordered_map<int , int>m;
+        for (int i=0; i<grid.size(); i++) {
+            vector<int>nums = grid[i];
+            for (int j=0; j<nums.size(); j++) {
+                m[nums[j]]++;
+            }
+        }
+          vector<int>ans(2 , -1);
+       for (auto &p : m) {
+          if (p.second >= 2) {
+        ans[0] = p.first;  // key = p.first, value = p.second
+          }
+        }
+         int n = grid.size();
+        for (int i=1; i<=n*n; i++) {
+         if (m.find(i) == m.end()) {
+            ans[1] = i;
+         }
+        }
+        return ans;
+    }
+};
+
+ ---------------------------------------------------------2nd Approach using set data structure and  also using math-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
