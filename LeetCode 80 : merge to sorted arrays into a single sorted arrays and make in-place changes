@@ -1,0 +1,60 @@
+___________________________________________________  1st approach ( the time complexity is O(m+n) with space complexity also O(m + n)_____________________________________________
+
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i=0 , j=0;
+        vector<int>ans;
+        while (i < m && j < n) {
+         if (nums1[i] <= nums2[j]) {
+            ans.push_back(nums1[i]);
+            i++;
+         } else {
+            ans.push_back(nums2[j]);
+            j++;
+         }
+        }
+
+        while (i < m) {
+            ans.push_back(nums1[i]);
+            i++;
+        }
+         while (j < n) {
+            ans.push_back(nums2[j]);
+            j++;
+        }
+
+        for (int h=0; h<ans.size(); h++) {
+            nums1[h] = ans[h];
+        }
+    }
+};
+
+
+
+
+____________________________ _______2nd approch with the time complexity of O(m +n ) but the O(1) space complexity ___________________________________________________________
+
+
+class Solution {
+public:
+    void merge(vector<int>& A, int m, vector<int>& B, int n) {
+     int idx = m+n-1 , i = m-1 , j = n-1;
+
+     while (i >= 0 && j >= 0) {
+      if (A[i] >= B[j]) {
+        A[idx--] = A[i--];
+      } else {
+        A[idx--] = B[j--];
+      }
+     }
+
+     while (i >= 0) {
+        A[idx--] = A[i--];
+     }   
+     while (j >= 0) {
+        A[idx--] = B[j--];
+     }
+    }
+};
