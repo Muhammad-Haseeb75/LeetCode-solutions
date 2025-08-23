@@ -1,0 +1,68 @@
+__________________________________________Floyd's tortoise and hare cycle detection algorithm__Tc(N) SC:O(1)_________________most optimal solution for this problem____________________________
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+      int slow = nums[0] , fast = nums[0];
+
+      do {ac
+        slow = nums[slow];
+        fast =  nums[nums[fast]];
+      }  while (slow != fast);
+
+        slow = nums[0];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+      return fast;
+    }
+};
+
+
+
+------------------------------------Using a vector<bool>vec  TC  : O(n)  ,SC : O(N)  -------------------------------we can also use set here-------------------------------------
+
+
+
+
+class Solution { 
+public: 
+   int findDuplicate(vector<int>& nums) {
+      vector<bool>vec(nums.size() , false);
+         for(int i=0; i<nums.size(); i++) { 
+            if (vec[nums[i]]) {
+              return nums[i];
+              break; 
+          } else { 
+         vec[nums[i]] = true;
+        }
+  }
+return -1; 
+}
+};
+
+
+
+
+
+
+-------------------------------------3rd approach also exist in which we can use sorting but the time complexity will be O(Log N) there---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
