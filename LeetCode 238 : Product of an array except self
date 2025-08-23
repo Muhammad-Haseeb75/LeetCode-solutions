@@ -1,0 +1,61 @@
+____________________________________________________________________First approach which has the time and space complexity of O(n)_______________________________________________________
+
+
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+       vector<int>prefix(nums.size() , -1);
+       vector<int>suffix(nums.size() , -1);
+
+       prefix[0] = nums[0]; // base case
+         for (int i = 1; i < nums.size(); i++) {
+           prefix[i] = prefix[i-1] * nums[i];
+        }
+
+        suffix[suffix.size() -1 ] = nums[nums.size()-1];
+        for (int i = nums.size()-2; i >= 0; i--) {
+            suffix[i] = nums[i] * suffix[i+1];
+        }
+           
+           nums[0] = 1*suffix[1];
+           nums[nums.size()-1] = prefix[prefix.size()-2] * 1;
+        for (int i=1; i<nums.size()-1; i++) {
+             nums[i] = prefix[i-1] * suffix[i+1];
+        }
+
+
+       return nums;
+    }
+};  
+
+
+
+
+____________________________________________________2nd approach has the linear time complexity and constant space complexity_________________________________________________
+
+
+
+
+ class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int>res(nums.size() , -1);
+
+        res[0] = 1;
+        for (int i=1; i<res.size(); i++) {
+            res[i] = res[i-1] * nums[i-1];  //[1 , 1 , 2 , 6]; --> prefix sum of the array(nums)
+        }
+
+        int suffix = 1;
+        int i = res.size()-1;
+
+        while (i >= 0) {
+            res[i] *= suffix;
+            suffix *= nums[i];
+            i--;
+        }
+
+        return res;
+    }
+};
