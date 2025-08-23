@@ -1,0 +1,65 @@
+
+
+____________________________________1st approach (which is having the time complexity of O(N*N) and constant space complexity____________________________________________________
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int i=0 , j = 0;
+        int n = nums.size();
+         int ans = 0;
+        while (i < n) {
+            int num =0;
+
+            for (j=i; j<nums.size(); j++) {
+                num += nums[j];
+
+                if (num == k) {
+                    ans++;
+                }
+            }
+
+        i++;
+        j=i;
+        }
+        return ans;
+    }
+};
+
+
+
+___________________________________2nd approach has the time complexity of O(N) and the space is also O(N) , most optimized approach for this problem___________________________
+
+
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+      int count = 0 ; 
+      unordered_map<int , int >m;
+
+      vector<int>ps(nums.size() , -1);
+
+      ps[0] = nums[0];
+      for(int i=1; i<nums.size(); i++) {
+           ps[i] = ps[i-1] + nums[i];
+      }
+
+      for (int j =0; j<nums.size(); j++) {
+        if(ps[j] == k) {
+            count++;
+        }
+
+        int val = ps[j]-k;
+        if (m.find(val) != m.end()) {
+            count += m[val];
+        }
+
+        if (m.find(ps[j]) == m.end()) {
+            m[ps[j]] = 0;
+        }
+         m[ps[j]]++;
+      }  
+      return count;
+    }
+};
