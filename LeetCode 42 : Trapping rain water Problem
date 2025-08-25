@@ -1,0 +1,59 @@
+
+
+-------------------------------------------------------------------using two arrays to store the left and right maximum------------------------------------------------------------
+----------_____________________---------------------_____________  Time complexity is : O(n)  && Space complexity is :  O(1) ----------------------------------------------
+
+class Solution {
+public:
+    int trap(vector<int>& ht) {
+        int n=ht.size();
+       vector<int>lmax(ht.size() , 0);
+       vector<int>rmax(ht.size() , 0);
+       int units = 0;
+        
+        lmax[0] = ht[0];
+       for (int i=1; i<ht.size(); i++) {    //to Calculate the left maximum for each index
+        lmax[i] = max(ht[i] , lmax[i-1]);
+       } 
+
+       rmax[n-1] = ht[n-1];
+       for (int i=n-2; i>=0; i--) {     //To calculate the right maximum for each index
+        rmax[i] = max(rmax[i+1] , ht[i]);
+       }
+
+       for (int i=0; i<n; i++) {
+        units += min(lmax[i] , rmax[i]) - ht[i];
+       }
+       return units;
+    }
+};
+
+
+
+
+
+-------------------------------------------------------------------optimized in terms of space complexity (o(1))  time complexity O(N)-----------------------------------------
+
+
+
+class Solution {
+public:
+    int trap(vector<int>& ht) {
+        int n = ht.size();
+        int l = 0 , r = n-1 , rmax =0 , lmax = 0 ,ans = 0;
+
+        while (l < r) {
+            lmax = max(lmax , ht[l]);
+            rmax = max(rmax , ht[r]);
+
+            if (lmax <  rmax) {
+                ans += (lmax-ht[l]);
+                l++;
+            } else {
+                ans += (rmax-ht[r]);
+                r--;
+            }
+        }
+        return ans;
+    }
+};
