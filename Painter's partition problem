@@ -1,0 +1,41 @@
+class Solution {
+  public:
+  
+  bool isValid(vector<int>& arr , int k , int midVal) {
+      
+      int p = 1 , time = 0;
+      
+      for (int i=0; i<arr.size(); i++) {
+          if (time + arr[i] <= midVal) {
+              time += arr[i];
+          } else {
+              p++;
+              time = arr[i];
+          }
+      }
+      
+      return p > k ? false : true;
+  }
+    int minTime(vector<int>& arr, int k) {
+        // code here
+        
+        int sum = 0  , ans = -1 , maxi = INT_MIN;
+        for (int i=0; i<arr.size(); i++) {
+        sum += arr[i];
+        maxi = max(maxi , arr[i]);
+        }
+        
+        int st = maxi , end = sum;
+        
+        while (st <= end ) {
+            int mid = st + (end - st) / 2;
+            
+            if (isValid(arr , k ,mid)) {
+                ans = mid;
+                end = mid -1;
+            } else st = mid + 1;
+        }
+        
+        return ans;
+    }
+};
