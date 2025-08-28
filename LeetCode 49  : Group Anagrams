@@ -1,0 +1,65 @@
+--------------------first approach which has the time complexity O(n * k Log K) and space complexity is O(n * k) where k is the lenght of each string---------------------------
+
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& str) {
+        vector<string>strs = str;   //making a copy of string
+        for (int i=0; i<strs.size(); i++) { //sorting the copy of actual input string
+            string s = strs[i];
+            sort(s.begin() , s.end());
+            strs[i] = s;
+        }
+
+        unordered_map<string , vector<string>>m;   //using a map to store the d/f val for one sorted key
+        for (int i=0; i<strs.size(); i++) {
+         m[strs[i]].push_back(str[i]);        //pushing the values into the map.second
+        }
+          
+          vector<vector<string>>ans;
+        for (auto &c : m) {
+            vector<string>vec = c.second;   //pushing the second value of map to the answer variable
+                                                            
+
+            ans.push_back(vec);
+        }
+        return ans;   // return the ans
+    }
+};
+
+/* This code can be optimized and also can be more clean where i am using two loops 
+1. To sort the values of the copy string and 
+2. 2nd is the loop for pushing the values into the map
+
+
+
+
+------------------------------------------------------------2nd approach : just the code is optimized the approach is same------------------------------------------------------
+
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string , vector<string>>m;
+
+        for (int i=0; i<strs.size(); i++) {
+            string key = strs[i];
+            sort(key.begin() , key.end());
+            m[key].push_back(strs[i]);
+        }
+            
+            vector<vector<string>>ans;
+        for (auto &c : m) {
+            vector<string>vec = c.second;
+            ans.push_back(vec);
+        }
+        return ans;
+    }
+};
+
+
+---------------------------------------------------Approach 3 : 
+
+
+
+So this can be done in single loop  , but this is more readable and easy to understand whats going on there */
