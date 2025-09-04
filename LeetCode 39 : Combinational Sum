@@ -1,0 +1,34 @@
+class Solution {
+public:
+
+      
+   
+    void helper(vector<int>&arr , int i , int tar , vector<vector<int>>&ans , vector<int>&vec) {
+          
+          //Base Case 
+          if (i == arr.size() || tar < 0) {
+            return;
+          }
+
+          if (tar == 0) {
+            ans.push_back(vec);
+            return;
+            }
+
+          //Include
+          vec.push_back(arr[i]); 
+          helper(arr , i , tar-arr[i] , ans , vec);
+          
+          vec.pop_back();
+
+          //exclude
+          helper(arr , i+1 , tar , ans , vec);
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        vector<int>vec;
+        helper(candidates , 0 , target , ans , vec);
+        return ans;
+    }
+};
