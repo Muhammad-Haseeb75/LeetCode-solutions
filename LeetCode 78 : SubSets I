@@ -1,0 +1,22 @@
+class Solution {
+public:
+
+    void helper(vector<int>& nums ,int idx ,  vector<vector<int>>&ans , vector<int>&vec ) {
+        if (idx == nums.size()) {
+            ans.push_back({vec});
+            return;
+        }
+
+        vec.push_back(nums[idx]);
+        helper(nums , idx+1 , ans , vec);
+        vec.pop_back();
+        //backtracking
+        helper(nums , idx+1 , ans , vec);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>>ans;
+        vector<int>vec;
+        helper( nums , 0 , ans , vec);
+        return ans; 
+    }
+};
