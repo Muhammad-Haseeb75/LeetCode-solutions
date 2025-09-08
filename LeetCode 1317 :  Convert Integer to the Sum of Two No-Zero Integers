@@ -1,0 +1,31 @@
+class Solution {
+public:
+
+
+    bool chk(int i) {
+        if (i == 0) return false;
+         
+
+        while(i > 9) {
+            int rem = i % 10;
+            if (rem == 0) return false;
+            i /= 10;
+        }
+        return true;
+    }
+
+    vector<int> getNoZeroIntegers(int n) {
+        vector<int>ans(2 , -1);
+
+        for (int i=0; i<=n/2; i++) {
+            int j = n-i;
+
+            if(chk(i) && chk(j)) {
+                ans[0] = i;
+                ans[1] = j;
+                break;
+            }
+        }
+        return ans;
+    }
+};
