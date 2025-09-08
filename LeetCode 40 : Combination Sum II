@@ -1,0 +1,32 @@
+class Solution { 
+    public:
+     void helper(vector<int>&nums , int i , vector<vector<int>>& ans , vector<int>&vec , int sum , int tar) {
+         if (sum == tar) { 
+            ans.push_back(vec);
+             return;
+              }
+         if (sum > tar) { 
+            return;
+         }
+          if(i >= nums.size()) return; 
+          vec.push_back(nums[i]); 
+          helper(nums , i+1 , ans , vec , sum+nums[i] , tar); 
+          vec.pop_back();
+          int idx = i+1;
+          
+          while(idx < nums.size() && nums[idx] == nums[idx-1]) idx++; //To remove duplicats in the array.
+           //backtracking
+            helper(nums , idx , ans , vec , sum , tar);
+     }
+      vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
+        sort(nums.begin() , nums.end());
+         vector<vector<int>>tempans;
+          vector<int>vec; 
+          helper(nums , 0 , tempans , vec , 0 , target) ; 
+
+        //   set<vector<int>>s(tempans.begin() , tempans.end());
+        //   vector<vector<int>>ans(s.begin() , s.end());
+        //we can also use set here , but it will give us MLE and using the sorting is best approaach to solve this problem
+          return tempans;
+           }
+         };
