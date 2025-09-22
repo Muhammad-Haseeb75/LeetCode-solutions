@@ -1,0 +1,34 @@
+class Solution {
+  public:
+  
+  void helper(vector<vector<int>>&mat , int r , int c , string str ,vector<string>&ans ) {
+      int n = mat.size();
+      //out of bounds
+      if(r >= n || c >= n || r < 0 || c < 0)return;
+      //not the correct box to jump for
+      if(mat[r][c] != 1)return;
+      //reached at the end of the maze
+      if(r == n-1 &&  c == n-1) {
+          ans.push_back(str);
+          return;
+      }
+      //making the cell visited
+      mat[r][c] = 0;
+      //calling the helper for the four possible paths
+      helper(mat , r , c+1 , str + "R" , ans);
+      helper(mat , r , c-1 , str + "L" , ans);
+      helper(mat , r+1 , c , str + "D" , ans);
+      helper(mat , r-1 , c , str + "U" , ans);
+      //making the cell unvisited after on recursive call in backtraking
+      mat[r][c] = 1;
+  }
+    vector<string> ratInMaze(vector<vector<int>>& mat) {
+        // code here
+        vector<string>ans;
+        string str = "";
+        helper(mat , 0 , 0 , str , ans);
+        
+        sort(ans.begin() , ans.end());
+        return ans;
+    }
+};
