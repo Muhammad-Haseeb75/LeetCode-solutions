@@ -1,0 +1,30 @@
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+
+        //First loop to find the position of the left pointer
+        ListNode* leftPrev = dummy;
+        ListNode* curr = head;
+        for (int i=1; i<left; i++) {
+           leftPrev = curr;
+           curr = curr->next;
+        }
+
+        // 2nd loop to reverse all the connections in range
+        ListNode* prev = NULL;
+        for (int i=0; i<right-left+1; i++) {
+            ListNode* temp = curr->next;
+           curr->next = prev;
+           prev = curr;
+           curr = temp;
+        }
+
+        //Change the connections
+        leftPrev->next->next = curr;
+        leftPrev->next = prev;
+
+        return dummy->next;
+    }
+};
