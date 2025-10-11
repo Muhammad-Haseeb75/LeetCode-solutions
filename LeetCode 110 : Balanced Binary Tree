@@ -1,0 +1,51 @@
+
+
+===================================================================== First approach which has the O(N*N) TC =======================================================================
+class Solution {
+public:
+    int height(TreeNode* root) {
+        if(root == NULL) return 0;
+        int leftHT = height(root->left);
+        int rightHT = height(root->right);
+        return max(leftHT, rightHT) + 1;
+    }
+
+    bool isBalanced(TreeNode* root) {
+        if(root == NULL) return true;
+
+        bool leftBalanced = isBalanced(root->left);
+        bool rightBalanced = isBalanced(root->right);
+
+        int lht = height(root->left);
+        int rht = height(root->right);
+
+        if(abs(lht - rht) > 1) return false;
+
+        return leftBalanced && rightBalanced;
+    }
+};
+
+
+
+================================================================= 2nd approach has the linear TC ===========================================================================
+
+class Solution {
+public:
+    int check(TreeNode* root) {
+        if(!root) return 0;
+
+        int left = check(root->left);
+        if(left == -1) return -1;
+
+        int right = check(root->right);
+        if(right == -1) return -1;
+
+        if(abs(left - right) > 1) return -1;
+
+        return max(left, right) + 1;
+    }
+
+    bool isBalanced(TreeNode* root) {
+        return check(root) != -1;
+    }
+};
