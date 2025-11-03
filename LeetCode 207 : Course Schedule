@@ -1,0 +1,39 @@
+class Solution {
+public:
+
+    bool isCycle(int curr , vector<bool>& vis , vector<bool>&rec , vector<vector<int>>& edges)  {
+      vis[curr] = true;
+      rec[curr] = true;
+
+      for(int i=0; i<edges.size(); i++) {
+        int v = edges[i][0];
+        int u = edges[i][1];
+
+        if(u == curr) {
+            if(!vis[v]) {
+                if(isCycle(v , vis , rec , edges)) {
+                    return true;
+                }
+            } else if(rec[v]) {
+                return true;
+            }
+        }
+      }
+
+        rec[curr] = false;
+        return false;
+    }
+    bool canFinish(int n, vector<vector<int>>& edges) {
+        vector<bool>vis(n , false);
+        vector<bool>rec(n , false);
+
+        for(int i=0; i<n; i++) {
+            if(!vis[i]) {
+                if(isCycle(i , vis , rec , edges)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
